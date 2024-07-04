@@ -1,5 +1,6 @@
 import numpy as np
 import scipy as sp
+from scipy.spatial import distance
 
 def svd_update(U, s, V, a, b):
     """
@@ -59,11 +60,13 @@ if __name__ == "__main__":
     b[-1] += 1
     
     # ランクrに近似
-    mask = s > 1e-5
+    print(s)
+    mask = s >= s.max()
     s = s[mask]
     U = U[:, mask]
     V = V[mask, :]
-    
+    print("V:", V.shape)
+    print("b:", b.shape)
     U, s, V = svd_update(U, s, V, a, b)
     print("before")
     print(G)
